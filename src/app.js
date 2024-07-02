@@ -1,24 +1,45 @@
-import express from 'express' //importação express
-const app = express() //herda os metodos do express
+//import { openDb } from './database/configdb.js' //importação de configurações sqlite.
+import { createTable, insertUser, updateUser } from './controller/user.js' //importação função createTable() e inserUser.
+import express from 'express' //importação express - necessário adicionar "type":"module" em package.json
 
-app.use(express.json()) //define que o express irá receber dados json.
+const app = express() //const app herda os metodos do express
+app.use(express.json()) //define que o express irá receber dados no formato json.
 
-//metodo GET, passando como parâmetro "(req,res) =>" que significa requisição e resposta.
-//res.send é o retorno da function.
+createTable(); //função para criar tabela sqlite.
 
-const users = []
 
-app.post('/usuarios', (req, res) =>{
-    
-    users.push(req.body)
+/*******ENDPOINTS USERS ABAIXO*****************************************************/
 
-    res.send('Ok, aqui deu certo!')
+//metodo POST
+app.post('/user', (req, res) =>{ 
+
+    insertUser(req.body) //
+    res.json({
+        "statusCode":"201",
+        "msg":"Usuário cadastrado com sucesso!"
+    })
 })
 
-app.get('/usuarios', (req, res) => {
+//metodo GET
+app.get('/user', (req, res) => {})
+
+//metodo PUT
+app.put('/user', (req, res) =>{ 
     
-    res.json(users)
+    if(req.body && !req.body.email){
+        res.json({
+            "statusCode":"400",
+            "msg":"Você precisa informar um id"
+        })
+    }else{
+        updateUser(req.body)
+        res.json({
+            "statusCode":"200",
+            "msg":"Usuário atualizado com sucesso!"
+        })
+    }
 })
 
-//cria uma porta 3000 para acessar os endpoints da API.
+
+//cria uma porta root 3000 para acessar os endpoints da API.
 app.listen(3000)
