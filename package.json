@@ -10,9 +10,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.19.2",
+    "fs": "^0.0.1-security",
+    "https": "^1.0.0",
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7"
   },
-  "type":"module"
+  "type": "module"
 }
