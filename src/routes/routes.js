@@ -1,5 +1,5 @@
-import { Router } from "express"
-import { createTableUser, selectUsers, selectUser , insertUser, updateUser, deleteUser} from "../controllers/user.js"
+import { json, Router } from "express"
+import { createTableUser, selectUsers, selectUser , insertUser, updateUser, deleteUser, authUser, verifyJWT} from "../controllers/user.js"
 import { createTableTask, deleteTask, insertTask, selectTask, selectTasks, updateTask } from "../controllers/task.js"
 
 const router = Router()
@@ -12,17 +12,18 @@ router.get('/', (req, res)=> res.status(200).json({
 createTableUser()
 createTableTask()
 
-router.get('/users', selectUsers)
-router.get('/user', selectUser)
-router.post('/user', insertUser)
-router.put('/user', updateUser)
-router.delete('/user', deleteUser)
-router.get('/tasks', selectTasks)
-router.get('/task', selectTask)
-router.post('/task', insertTask)
-router.put('/task', updateTask)
-router.delete('/task', deleteTask)
+router.get('/listarUsuarios', selectUsers)
+router.get('/listarUsuario', selectUser)
+router.post('/registrarUsuario', insertUser)
+router.put('/editarTarefa', verifyJWT, updateUser)
+router.delete('/deletarUsuario', verifyJWT, deleteUser)
 
+router.get('/listarTarefas', verifyJWT, selectTasks)
+router.get('/listarTarefa', verifyJWT, selectTask)
+router.post('/registrarTarefa', verifyJWT, insertTask)
+router.put('/editarTarefa', verifyJWT, updateTask)
+router.delete('/deletarTarefa', verifyJWT, deleteTask)
+
+router.post('/login', authUser)
 
 export default router
-

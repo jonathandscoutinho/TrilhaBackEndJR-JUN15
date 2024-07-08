@@ -1,0 +1,59 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "Tarefas",
+        "description": "API de documentação para tarefas",
+        "version": "1.0.0"
+    },
+    "basePath": "/",
+    "paths": {
+        "/listarUsuarios": {
+            "get": {
+                "parameters": {},
+                "responses": {
+                    "200": {
+                        "description": "Retornará lista de usuários cadastrados"
+                    }
+                }
+            }
+        },
+        "/registrarUsuario": {
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuário registrado com sucesso."
+                    },
+                    "409": {
+                        "description": "Email já está registrado"
+                    },
+                    "440": {
+                        "description": "Necessário informar um email."
+                    },
+                    "441": {
+                        "description": "Necessário informar uma senha."
+                    },
+                    "500": {
+                        "description": "Erro ao registrar usuário"
+                    }
+                }
+            }
+        }
+    }
+}

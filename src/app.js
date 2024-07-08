@@ -2,16 +2,15 @@ import express from 'express'
 import fs from 'fs'
 import https from 'https'
 import cors from 'cors'
+import swaggerUI from 'swagger-ui-express'
+import swaggerDocument from '../swagger.json' assert {type: 'json'}
+import router from './routes/routes.js'
 
 const app = express()
 app.use(express.json())
 app.use(cors())
-
-
-import router from './routes/routes.js'
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
 app.use(router)
-
-//app.listen(3000, ()=> console.log('API Rodando.'))
 
 https.createServer({
     cert: fs.readFileSync('SSL/code.crt'),
