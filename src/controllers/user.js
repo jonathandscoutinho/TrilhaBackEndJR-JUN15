@@ -48,11 +48,11 @@ export async function insertUser(req, res) { //documentado.
 
         if (!user.email) {
             res.status(440).json({
-                message: "Necessário informar um email."
+                message: "Erro: Necessário informar um email."
             });
         } else if (!user.password) {
             res.status(441).json({
-                message: "Necessário informar uma senha."
+                message: "Erro: Necessário informar uma senha."
             });
         } else {
             await db.run('INSERT INTO user (email, password) VALUES (?, ?)', [user.email, user.password]);
@@ -68,9 +68,9 @@ export async function insertUser(req, res) { //documentado.
                 error: error.message
             });
         } else {
-            console.error("Erro ao registrar usuário:", error.message);
+            console.error("Erro: Não foi possível realizar esta ação, tente novamente mais tarde.", error.message);
             res.status(500).json({
-                msg: "Erro ao criar usuário",
+                msg: "Erro: Não foi possível realizar esta ação, tente novamente mais tarde.",
                 error: error.message
             });
         }
@@ -85,7 +85,11 @@ export async function updateUser(req, res) { //documentado.
 
         if (!user.email) {
             res.status(440).json({
-                message: "Necessário informar um email."
+                message: "Erro: Necessário informar um email."
+            });
+        } else if (!user.password) {
+            res.status(441).json({
+                message: "Erro: Necessário informar um senha."
             });
         } else {
             await db.run('UPDATE user SET password=? WHERE email=?', [user.password, user.email])
@@ -95,22 +99,36 @@ export async function updateUser(req, res) { //documentado.
         }
 
     } catch (error) {
-        console.error("Erro ao registrar usuário:", error.message);
+        console.error("Erro: Não foi possível realizar esta ação, tente novamente mais tarde.", error.message);
         res.status(500).json({
-            msg: "Erro ao criar usuário",
+            msg: "Erro: Não foi possível realizar esta ação, tente novamente mais tarde.",
             error: error.message
         });
     }
 }
 
-export async function deleteUser(req, res) {
+export async function deleteUser(req, res) { //
     let email = req.body.email
-    await openDb().then(db => {
-        db.get('DELETE FROM user WHERE email=?', [email])
-    })
-    res.status(204).json({
-        "msg": "Usuário excluído com sucesso!"
-    })
+    let db = openDb()
+
+    try {
+        if (!user.email) {
+            res.status(440).json({
+                message: "Erro: Necessário informar um email."
+            });
+        } else {
+            await db.get('DELETE FROM user WHERE email=?', [email])
+            res.status(200).json({
+                "msg": "Usuário deletado com sucesso!"
+            })
+        }
+    } catch (error) {
+        console.error("Erro: Não foi possível realizar esta ação, tente novamente mais tarde.", error.message);
+        res.status(500).json({
+            msg: "Erro: Não foi possível realizar esta ação, tente novamente mais tarde.",
+            error: error.message
+        });
+    }
 }
 
 export async function authUser(req, res) {

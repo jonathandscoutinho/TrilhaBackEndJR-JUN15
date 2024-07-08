@@ -41,16 +41,77 @@
                         "description": "Usuário registrado com sucesso."
                     },
                     "409": {
-                        "description": "Email já está registrado"
+                        "description": "Erro: Email já está registrado"
                     },
                     "440": {
-                        "description": "Necessário informar um email."
+                        "description": "Erro: Necessário informar um email."
                     },
                     "441": {
-                        "description": "Necessário informar uma senha."
+                        "description": "Erro: Necessário informar uma senha."
                     },
                     "500": {
-                        "description": "Erro ao registrar usuário"
+                        "description": "Erro: Não foi possível realizar esta ação, tente novamente mais tarde."
+                    }
+                }
+            }
+        },
+        "/editarUsuario": {
+            "put": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Senha alterada com sucesso."
+                    },
+                    "440": {
+                        "description": "Erro: Necessário informar um email."
+                    },
+                    "500": {
+                        "description": "Erro: Não foi possível realizar esta ação, tente novamente mais tarde."
+                    }
+                }
+            }
+        },
+        "/deletarUsuario": {
+            "delete": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuário deletado com sucesso!"
+                    },
+                    "440": {
+                        "description": "Erro: Necessário informar um email."
+                    },
+                    "500": {
+                        "description": "Erro: Não foi possível realizar esta ação, tente novamente mais tarde."
                     }
                 }
             }
