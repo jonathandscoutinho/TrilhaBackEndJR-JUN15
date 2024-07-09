@@ -1,4 +1,7 @@
-import { openDb } from "../database/configdb.js";
+import { openDb } from "../database/configdb.js"
+import jwt from 'jsonwebtoken'
+
+const SECRET = 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'
 
 export async function createTableTask() {
     await openDb().then(db => {
@@ -7,10 +10,13 @@ export async function createTableTask() {
 }
 
 export async function selectTasks(req, res) {
-    await openDb().then(db => {
-        db.all('SELECT * FROM task')
+        const token = req.headers['x-acess-token']
+        const decoded = jwt.decode(token, SECRET);
+        const userId = decoded.userId;
+        const db = await openDb()
+
+        db.all('SELECT * FROM task WHERE email_id=?', [userId])
             .then(tasks => res.json(tasks))
-    })
 }
 
 export async function selectTask(req, res) {
@@ -27,7 +33,7 @@ export async function insertTask(req, res) {
         db.run('INSERT INTO task (description, email_id) VALUES (?,?)', [task.description, task.email_id])
     })
     res.status(200).json({
-        "msg":"Tarefa criado com sucesso!"
+        "msg": "Tarefa criado com sucesso!"
     })
 }
 

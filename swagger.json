@@ -5,11 +5,23 @@
         "description": "API de documentação para tarefas",
         "version": "1.0.0"
     },
-    "basePath": "/",
+    "tags": [
+        {
+            "name": "User Operations",
+            "description": "Operações relacionadas aos usuários"
+        },
+        {
+            "name": "Task Operations",
+            "description": "Operações relacionadas as tarefas"
+        }
+    ],
     "paths": {
         "/listarUsuarios": {
             "get": {
-                "parameters": {},
+                "tags": [
+                    "User Operations"
+                ],
+                "description": "Lista todos os usuários",
                 "responses": {
                     "200": {
                         "description": "Retornará lista de usuários cadastrados"
@@ -19,6 +31,9 @@
         },
         "/registrarUsuario": {
             "post": {
+                "tags": [
+                    "User Operations"
+                ],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -57,6 +72,9 @@
         },
         "/editarUsuario": {
             "put": {
+                "tags": [
+                    "User Operations"
+                ],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -89,6 +107,9 @@
         },
         "/deletarUsuario": {
             "delete": {
+                "tags": [
+                    "User Operations"
+                ],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -112,6 +133,51 @@
                     },
                     "500": {
                         "description": "Erro: Não foi possível realizar esta ação, tente novamente mais tarde."
+                    }
+                }
+            }
+        },
+        "/autenticarUsuario": {
+            "post": {
+                "tags": [
+                    "User Operations"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "401": {
+                        "description": "Não autorizado."
+                    },
+                    "200": {
+                        "description": "Autenticado."
+                    }
+                }
+            }
+        },
+        "/listarTarefas": {
+            "get": {
+                "tags": [
+                    "Task Operations"
+                ],
+                "description": "Lista todas as tarefas",
+                "responses": {
+                    "200": {
+                        "description": "Retornará lista de tarefas registradas"
                     }
                 }
             }

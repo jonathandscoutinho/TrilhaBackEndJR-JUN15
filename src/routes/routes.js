@@ -14,8 +14,8 @@ createTableTask()
 
 router.get('/listarUsuarios', selectUsers)
 router.get('/listarUsuario', selectUser)
-router.post('/registrarUsuario', insertUser)
-router.put('/editarTarefa', verifyJWT, updateUser)
+router.post('/registrarUsuario', insertUser)    
+router.put('/editarUsuario', verifyJWT, updateUser)
 router.delete('/deletarUsuario', verifyJWT, deleteUser)
 
 router.get('/listarTarefas', verifyJWT, selectTasks)
@@ -24,6 +24,6 @@ router.post('/registrarTarefa', verifyJWT, insertTask)
 router.put('/editarTarefa', verifyJWT, updateTask)
 router.delete('/deletarTarefa', verifyJWT, deleteTask)
 
-router.post('/login', authUser)
+router.post('/autenticarUsuario', authUser)
 
 export default router
