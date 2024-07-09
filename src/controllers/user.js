@@ -158,7 +158,8 @@ export async function authUser(req, res) { //documentado
     } catch (error) {
         console.error(error);
         return res.status(500).json({
-            message: "Erro interno do servidor."
+            message: "Erro interno do servidor.",
+            error: error.message
         }).end();
     }
 }

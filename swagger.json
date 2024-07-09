@@ -174,10 +174,164 @@
                 "tags": [
                     "Task Operations"
                 ],
-                "description": "Lista todas as tarefas",
+                "parameters": [
+                    {
+                        "name": "x-acess-token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "Token de acesso para autenticação"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Retornará lista de tarefas registradas"
+                        "description": "Retornará lista de tarefas registradas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer"
+                                            },
+                                            "description": {
+                                                "type": "string"
+                                            },
+                                            "email_id": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/registrarTarefa": {
+            "post": {
+                "tags": [
+                    "Task Operations"
+                ],
+                "parameters": [
+                    {
+                        "name": "x-acess-token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "Token de acesso para autenticação"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "description": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Tarefa registrada com sucesso."
+                    },
+                    "500": {
+                        "description": "Erro interno do servidor."
+                    }
+                }
+            }
+        },
+        "/editarTarefa": {
+            "put": {
+                "tags": [
+                    "Task Operations"
+                ],
+                "parameters": [
+                    {
+                        "name": "x-acess-token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "Token de acesso para autenticação"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "integer"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Tarefa editada com sucesso."
+                    },
+                    "500": {
+                        "description": "Erro interno do servidor."
+                    }
+                }
+            }
+        },
+        "/deletarTarefa": {
+            "delete": {
+                "tags": [
+                    "Task Operations"
+                ],
+                "parameters": [
+                    {
+                        "name": "x-acess-token",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "Token de acesso para autenticação"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "integer"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Tarefa deletada com sucesso."
+                    },
+                    "500": {
+                        "description": "Erro interno do servidor."
                     }
                 }
             }
