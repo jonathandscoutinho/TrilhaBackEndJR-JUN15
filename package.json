@@ -4,8 +4,8 @@
   "description": "![Código Certo Coders](https://utfs.io/f/3b2340e8-5523-4aca-a549-0688fd07450e-j4edu.jfif)",
   "main": "src/app.js",
   "scripts": {
-  "postinstall": "npm rebuild sqlite3 --build-from-source"
-},
+    "postinstall": "npm rebuild sqlite3 --build-from-source"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -17,7 +17,6 @@
     "https": "^1.0.0",
     "jsonwebtoken": "^9.0.2",
     "sqlite": "^5.1.1",
-    "sqlite3": "^5.1.7",
     "swagger-ui-express": "^5.0.1"
   },
   "type": "module",
